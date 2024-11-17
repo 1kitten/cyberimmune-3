@@ -7,22 +7,16 @@ from confluent_kafka import Consumer, OFFSET_BEGINNING
 
 from .producer import proceed_to_deliver
 
-
 MODULE_NAME: str = os.getenv("MODULE_NAME")
 
 
-def send_to_date_validator(id, details):
-    details["deliver_to"] = "date_validator"
+def send_to_mobile_app(id, details):
+    details['deliver_to'] = "conn_with_mob_app"
     proceed_to_deliver(id, details)
 
 
-def send_to_headlights(id, details):
-    details["deliver_to"] = "headlights"
-    proceed_to_deliver(id, details)
-
-
-def send_to_fuel_tank(id, details):
-    details["deliver_to"] = "fuel_tank"
+def send_to_to_management_system(id, details):
+    details['deliver_to'] = "conn_with_manag_sys"
     proceed_to_deliver(id, details)
 
 
@@ -36,15 +30,12 @@ def handle_event(id, details_str):
 
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
-    
-    if operation == "get_headlights":
-        return send_to_headlights(id, details)
-    
-    elif operation == "get_fuel_tank":
-        return send_to_fuel_tank(id, details)
 
-    elif operation == "date_verify":
-        return send_to_date_validator(id, details)
+    if operation == "communicate_with_mobile_app":
+        send_to_mobile_app(id, details)
+
+    elif operation == "communicate_with_manag_sys":
+        send_to_to_management_system(id, details)
 
 
 def consumer_job(args, config):
