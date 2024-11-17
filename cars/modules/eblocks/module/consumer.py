@@ -6,23 +6,53 @@ from uuid import uuid4
 from confluent_kafka import Consumer, OFFSET_BEGINNING
 
 from .producer import proceed_to_deliver
-
+import time
 
 MODULE_NAME: str = os.getenv("MODULE_NAME")
 
 
-def send_to_data_validator(id, details):
-    details["deliver_to"] = "data_validator"
+car_information = []
+
+
+def send_to_command_validation(id, details):
+    details['operation'] = 'command_validation'
     proceed_to_deliver(id, details)
 
 
-def send_to_headlights(id, details):
-    details["deliver_to"] = "headlights"
+def send_to_data_validator(id, info):
+    proceed_to_deliver(id, json.dumps(dict(
+        source=MODULE_NAME,
+        deliver_to="data_validation",
+        operation="data_validation",
+        data=info
+    )))
+
+
+def send_to_headlights(id):
+    proceed_to_deliver(id, json.dumps(dict(
+        source=MODULE_NAME,
+        deliver_to="headlights",
+        operation="send_current_headlights_state",
+        data={}
+    )))
+
+
+def send_to_fuel_tank(id):
+    proceed_to_deliver(id, json.dumps(dict(
+        source=MODULE_NAME,
+        deliver_to="fuel_tank",
+        operation="send_current_fuel_tank_state",
+        data={}
+    )))
+
+
+def send_to_manager_system(id, details):
+    details['deliver_to'] = 'conn_with_manag_sys_response'
     proceed_to_deliver(id, details)
 
 
-def send_to_fuel_tank(id, details):
-    details["deliver_to"] = "fuel_tank"
+def send_to_mobile_app(id, details):
+    details['deliver_to'] = 'conn_with_mob_app_response'
     proceed_to_deliver(id, details)
 
 
@@ -37,14 +67,43 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
     
-    if operation == "get_headlights":
-        return send_to_headlights(id, details)
-    
-    elif operation == "get_fuel_tank":
-        return send_to_fuel_tank(id, details)
+    send_to_headlights(uuid4)
+    send_to_fuel_tank(uuid4)
 
-    elif operation == "date_verify":
-        return send_to_data_validator(id, details)
+    if operation == 'lock_car_doors_result':
+        car_information.append(details.get('data'))
+    
+    elif operation == 'send_current_engine_state':
+        car_information.append(details.get('data'))
+    
+    elif operation == 'send_current_fuel_tank_state':
+        car_information.append(details.get('data'))
+    
+    elif operation == 'send_current_headlights_state':
+        car_information.append(details.get('data'))
+    
+    elif operation == 'send_current_gps_data':
+        car_information.append(details.get('data'))
+    
+    elif operation == 'send_current_tire_sensors_state':
+        car_information.append(details.get('data'))
+    
+    elif operation == 'send_current_vehicle_braking_state':
+        car_information.append(details.get('data'))
+    
+    send_to_data_validator(uuid4(), car_information)
+
+    if operation == 'conn_with_manag_sys_request':
+        print("Получили запрос от менеджера")
+        send_to_command_validation(id, details)
+        time.sleep(50)
+        send_to_manager_system(id, details)
+
+    elif operation == 'conn_with_mob_app_request':
+        print("Получили запрос от мобильного приложения")
+        send_to_command_validation(id, details)
+        time.sleep(50)
+        send_to_mobile_app(id, details)
 
 
 def consumer_job(args, config):
