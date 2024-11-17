@@ -94,9 +94,9 @@ services:
     #ports:
     #  - 6066:6066
 
-  date_validator:
-    build: ./cars/modules/date_validator
-    image: date_validator
+  data_validator:
+    build: ./cars/modules/data_validator
+    image: data_validator
     entrypoint:
       - bash
       - -c
@@ -104,9 +104,9 @@ services:
         echo 'Giving Kafka a bit of time to start up…'
         sleep 20
         venv/bin/python start.py /shared/config.ini
-    container_name: date_validator
+    container_name: data_validator
     environment:
-      - MODULE_NAME=date_validator
+      - MODULE_NAME=data_validator
     #  - MODULE_PORT=6067
     volumes:
       - ./cars/shared:/shared

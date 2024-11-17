@@ -4,7 +4,7 @@ MODULES := access_validator \
 			command_validator \
 			conn_with_manag_sys \
 			conn_with_mob_app \
-			date_validator \
+			data_validator \
 			doors_controller \
 			eblocks \
 			engine \

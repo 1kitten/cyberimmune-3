@@ -260,13 +260,13 @@ policies = (
     {"src": "conn_with_mob_app", "dst": "access_validator"},
     {"src": "access_validator", "dst": "conn_with_mob_app"},
     {"src": "conn_with_mob_app", "dst": "command_validator"},
-    {"src": "conn_with_mob_app", "dst": "date_validator"},
+    {"src": "conn_with_mob_app", "dst": "data_validator"},
 
     {"src": "ic", "dst": "doors_controller"},
     {"src": "doors_controller", "dst": "ic"},
     {"src": "engine_controller", "dst": "ic"},
     {"src": "ic", "dst": "engine_controller"},
-    {"src": "date_validator", "dst": "ic"},
+    {"src": "data_validator", "dst": "ic"},
     {"src": "payment_validator", "dst": "ic"},
     {"src": "access_validator", "dst": "ic"},
     {"src": "command_validator", "dst": "ic"},
@@ -290,7 +290,7 @@ policies = (
     {"src": "doors_controller", "dst": "eblocks"},
     
     # Модуль валидации
-    {"src": "eblocks", "dst": "date_validator"},
+    {"src": "eblocks", "dst": "data_validator"},
     {"src": "command_validator", "dst": "payment_validator"},
     {"src": "command_validator", "dst": "access_validator"},
 )

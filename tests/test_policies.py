@@ -81,19 +81,19 @@ class TestOperation(unittest.TestCase):
             ('conn_with_mob_app', 'access_validator', True),
             ('access_validator', 'conn_with_mob_app', True),
             ('conn_with_mob_app', 'command_validator', True),
-            ('conn_with_mob_app', 'date_validator', True),
+            ('conn_with_mob_app', 'data_validator', True),
 
             ('ic', 'doors_controller', True),
             ('doors_controller', 'ic', True),
             ('engine_controller', 'ic', True),
             ('ic', 'engine_controller', True),
-            ('date_validator', 'ic', True),
+            ('data_validator', 'ic', True),
             ('payment_validator', 'ic', True),
             ('access_validator', 'ic', True),
             ('command_validator', 'ic', True),
 
             ('conn_with_mob_app', 'ic', False),
-            ('ic', 'date_validator', False),
+            ('ic', 'data_validator', False),
             ('conn_with_manag_sys', 'ic', False),
             ('ic', 'access_validator', False),
             ('ic', 'payment_validator', False),
@@ -180,14 +180,14 @@ class TestOperation(unittest.TestCase):
 
     def test_validation_module(self):
         ops = (
-            ('eblocks', 'date_validator', True),
+            ('eblocks', 'data_validator', True),
             ('command_validator', 'payment_validator', True),
             ('command_validator', 'access_validator', True),
            
             ('eblocks', 'payment_validator', False),
             ('payment_validator', 'eblocks', False),
             ('command_validator', 'eblocks', False),
-            ('date_validator', 'eblocks', False),
+            ('data_validator', 'eblocks', False),
         )
 
         for op in ops:

@@ -11,23 +11,23 @@ from .producer import proceed_to_deliver
 MODULE_NAME: str = os.getenv("MODULE_NAME")
 
 
-def send_to_payment_verify(id, details):
-    details["deliver_to"] = "payment_verify"
+def send_to_payment_validator(id, details):
+    details["deliver_to"] = "payment_validator"
     proceed_to_deliver(id, details)
 
 
-def send_to_access_verify(id, details):
-    details["deliver_to"] = "access_verify"
+def send_to_access_validator(id, details):
+    details["deliver_to"] = "access_validator"
     proceed_to_deliver(id, details)
 
 
-def send_to_command_verify(id, details):
-    details["deliver_to"] = "command_verify"
+def send_to_command_validator(id, details):
+    details["deliver_to"] = "command_validator"
     proceed_to_deliver(id, details)
 
 
-def send_to_date_validator(id, details):
-    details["deliver_to"] = "date_validator"
+def send_to_data_validator(id, details):
+    details["deliver_to"] = "data_validator"
     proceed_to_deliver(id, details)
 
 
@@ -43,16 +43,16 @@ def handle_event(id, details_str):
           f"{source}->{deliver_to}: {operation}")
 
     if operation == "payment_verify":
-        return send_to_payment_verify(id, details)
+        return send_to_payment_validator(id, details)
     
     elif operation == "access_verify":
-        return send_to_access_verify(id, details)
+        return send_to_access_validator(id, details)
     
     elif operation == "command_verify":
-        return send_to_command_verify(id, details)
+        return send_to_command_validator(id, details)
     
     elif operation == "date_verify":
-        return send_to_date_validator(id, details)
+        return send_to_data_validator(id, details)
 
 
 def consumer_job(args, config):
