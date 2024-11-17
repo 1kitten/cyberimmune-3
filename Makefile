@@ -5,10 +5,8 @@ MODULES := access_validator \
 			conn_with_manag_sys \
 			conn_with_mob_app \
 			date_validator \
-			decoder \
 			doors_controller \
 			eblocks \
-			encoder \
 			engine \
 			engine_controller \
 			fuel_tank \

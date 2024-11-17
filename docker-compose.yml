@@ -113,25 +113,6 @@ services:
     #ports:
     #  - 6067:6067
 
-  decoder:
-    build: ./cars/modules/decoder
-    image: decoder
-    entrypoint:
-      - bash
-      - -c
-      - |
-        echo 'Giving Kafka a bit of time to start up…'
-        sleep 20
-        venv/bin/python start.py /shared/config.ini
-    container_name: decoder
-    environment:
-      - MODULE_NAME=decoder
-    #  - MODULE_PORT=6068
-    volumes:
-      - ./cars/shared:/shared
-    #ports:
-    #  - 6068:6068
-
   doors_controller:
     build: ./cars/modules/doors_controller
     image: doors_controller
@@ -169,25 +150,6 @@ services:
       - ./cars/shared:/shared
     #ports:
     #  - 6070:6070
-
-  encoder:
-    build: ./cars/modules/encoder
-    image: encoder
-    entrypoint:
-      - bash
-      - -c
-      - |
-        echo 'Giving Kafka a bit of time to start up…'
-        sleep 20
-        venv/bin/python start.py /shared/config.ini
-    container_name: encoder
-    environment:
-      - MODULE_NAME=encoder
-    #  - MODULE_PORT=6071
-    volumes:
-      - ./cars/shared:/shared
-    #ports:
-    #  - 6071:6071
 
   engine:
     build: ./cars/modules/engine
