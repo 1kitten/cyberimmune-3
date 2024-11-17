@@ -27,7 +27,7 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "send_current_engine_status":
+    if operation == "send_current_engine_state":
         send_to_eblocks(id, details)
 
 

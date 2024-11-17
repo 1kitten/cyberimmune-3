@@ -55,8 +55,8 @@ def consumer_job(args, config):
                     source=MODULE_NAME,
                     operation="send_current_tire_sensors_state",
                     data={
-                        "is_okay": bool(random.randint(1,0)),
-                        "exactly": bool(random.randint(1,0))
+                        "is_okay": bool(random.randint(0,1)),
+                        "exactly": bool(random.randint(0,1))
                     }
                 )))
             except Exception as e:

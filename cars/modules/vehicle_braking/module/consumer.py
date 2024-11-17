@@ -56,8 +56,8 @@ def consumer_job(args, config):
                     deliver_to="eblocks",
                     operation="send_current_vehicle_braking_state",
                     data={
-                        "is_okay": bool(random.randint(1,0)),
-                        "exactly": bool(random.randint(1,0))
+                        "is_okay": bool(random.randint(0,1)),
+                        "exactly": bool(random.randint(0,1))
                     }
                 )))
             except Exception as e:

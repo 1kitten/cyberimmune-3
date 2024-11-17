@@ -27,7 +27,7 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "send_current_location":
+    if operation == "send_current_gps_data":
         send_to_eblocks(id, details)
 
 

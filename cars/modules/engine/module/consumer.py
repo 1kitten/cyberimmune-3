@@ -28,12 +28,7 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "get_current_location":
-        is_stopped = data.get('is_stopped')
-        state = data.get('state')
-        heat = data.get('heat')
-        print(f"Общее состояние двигателя: {state}. Работает: {is_stopped}. Градус: {heat}")
-
+    if operation == "send_current_engine_state":
         send_to_engine_controller(id, details)
 
 

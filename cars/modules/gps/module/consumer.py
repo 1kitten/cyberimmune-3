@@ -62,9 +62,9 @@ def consumer_job(args, config):
                     deliver_to="navigation_handler",
                     operation="send_current_gps_data",
                     data={
-                        "lon": random.randint(1000000, 999999),
-                        "len": random.randint(1000000, 999999),
-                        "exactly": random.randint(1, 0)
+                        "lon": random.randint(100000, 999999),
+                        "len": random.randint(100000, 999999),
+                        "exactly": random.randint(0, 1)
                     }
                 )))
             except Exception as e:
