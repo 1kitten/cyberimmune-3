@@ -1,10 +1,10 @@
 import os
 import json
 import threading
-
+import time
 from uuid import uuid4
 from confluent_kafka import Consumer, OFFSET_BEGINNING
-
+import random
 from .producer import proceed_to_deliver
 
 
@@ -53,19 +53,21 @@ def consumer_job(args, config):
 
     try:
         while True:
-            msg = consumer.poll(1.0)
-            if msg is None:
-                pass
-            elif msg.error():
-                print(f"[error] {msg.error()}")
-            else:
-                try:
-                    id = msg.key().decode('utf-8')
-                    details_str = msg.value().decode('utf-8')
-                    handle_event(id, details_str)
-                except Exception as e:
-                    print(f"[error] Malformed event received from " \
-                          f"topic {topic}: {msg.value()}. {e}")
+            time.sleep(30)
+
+            try:
+                handle_event(uuid4(), json.dumps(dict(
+                    source=MODULE_NAME,
+                    deliver_to="engine_controller",
+                    operation="send_current_engine_state",
+                    data={
+                        "is_working": bool(random.randint(0,1)),
+                        "exactly": bool(random.randint(0,1))
+                    }
+                )))
+            except Exception as e:
+                print(f"[error] Malformed event received from " \
+                    f"topic {topic}. {e}")
     except KeyboardInterrupt:
         pass
 

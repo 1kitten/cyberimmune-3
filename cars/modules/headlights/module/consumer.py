@@ -51,7 +51,7 @@ def consumer_job(args, config):
         while True:
             if random.randint(0,1):
                 time.sleep(45)
-                handle_event(uuid4(), json.dumps(
+                handle_event(uuid4(), json.dumps(dict(
                     source=MODULE_NAME,
                     deliver_to="eblocks",
                     operation="send_current_headlights_state",
@@ -60,7 +60,7 @@ def consumer_job(args, config):
                         "is_right_working": bool(random.randint(0,1)),
                         "exactly": bool(random.randint(0,1)),
                     }
-                ))
+                )))
 
             msg = consumer.poll(1.0)
             if msg is None:

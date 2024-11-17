@@ -4,7 +4,8 @@ import threading
 
 from uuid import uuid4
 from confluent_kafka import Consumer, OFFSET_BEGINNING
-
+import time
+import random
 from .producer import proceed_to_deliver
 
 
@@ -28,9 +29,11 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "get_current_location":
-        coordinates = data.get('coordinates')
-        print(f"Координаты: {coordinates}")
+    if operation == "send_current_gps_data":
+        len_ = data.get('len')
+        lon = data.get('lon')
+
+        print(f"Координаты: lon: {lon} len: {len_}")
 
         send_to_navigation_handler(id, details)
 
@@ -51,19 +54,22 @@ def consumer_job(args, config):
 
     try:
         while True:
-            msg = consumer.poll(1.0)
-            if msg is None:
-                pass
-            elif msg.error():
-                print(f"[error] {msg.error()}")
-            else:
-                try:
-                    id = msg.key().decode('utf-8')
-                    details_str = msg.value().decode('utf-8')
-                    handle_event(id, details_str)
-                except Exception as e:
-                    print(f"[error] Malformed event received from " \
-                          f"topic {topic}: {msg.value()}. {e}")
+            time.sleep(45)
+
+            try:
+                handle_event(uuid4(), json.dumps(dict(
+                    source=MODULE_NAME,
+                    deliver_to="navigation_handler",
+                    operation="send_current_gps_data",
+                    data={
+                        "lon": random.randint(1000000, 999999),
+                        "len": random.randint(1000000, 999999),
+                        "exactly": random.randint(1, 0)
+                    }
+                )))
+            except Exception as e:
+                print(f"[error] Malformed event received from " \
+                        f"topic {topic}. {e}")
     except KeyboardInterrupt:
         pass
 
