@@ -213,15 +213,27 @@
 
 |Компонент|Уровень доверия|Оценка|Кол-во входящих интерфейсов|Комментарий|
 |:--|:-:|:-:|:-:|:--|
-|1. Связь с мобильным клиентом|$\textcolor{red}{\textsf{Недоверенный}}$|ML|2||
-|2. Профиль клиента|$\textcolor{red}{\textsf{Недоверенный}}$|CL|3||
-|3. Управление поездкой|$\textcolor{red}{\textsf{Недоверенный}}$|CL|2||
-|4. Контроль поездки|$\textcolor{orange}{\textsf{Доверенный}}$|SL|1||
-|5. Работа с системой оплаты услуг и счетами|$\textcolor{red}{\textsf{Недоверенный}}$|CL|2||
-|6. Верификация команд и услуг|$\textcolor{orange}{\textsf{Доверенный}}$|SM|1|Проверка команд по whitelist|
-|7. Авторизация клиента|$\textcolor{green}{\textsf{Доверенный}}$|SS|1|Создание уникальных токенов клиента и сверка его с последующими запросами|
-|8. Приём данных от автомобиля|$\textcolor{red}{\textsf{Недоверенный}}$|MM|1||
-|9. Отправка данных в автомобиль|$\textcolor{green}{\textsf{Доверенный}}$|SL|2|Отправка данных или команд по защищенному каналу связи|
+|1. conn_with_manag_sys|$\textcolor{red}{\textsf{Недоверенный}}$|SS|5||
+|2. conn_with_mob_app|$\textcolor{red}{\textsf{Недоверенный}}$|SS|3||
+|3. IC|$\textcolor{green}{\textsf{Доверенный}}$|CM|6||
+|4. tire_sensors|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
+|5. headlights_status|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
+|6. fuel_status|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
+|7. vehicle_braking|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
+|8. engine_controller|$\textcolor{orange}{\textsf{Доверенный}}$|MM|2||
+|9. engine|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
+|10. navigation_handler|$\textcolor{red}{\textsf{Недоверенный}}$|MM|1||
+|11. gps|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
+|12. doors_controller|$\textcolor{orange}{\textsf{Доверенный}}$|MM|1||
+|13. locking_device|$\textcolor{red}{\textsf{Недоверенный}}$|SS|1||
+|14. data_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|2||
+|15. command_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|3||
+|16. access_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|3||
+|17. payment_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|3||
+|18. eblocks|$\textcolor{red}{\textsf{Недоверенный}}$|MM|7||
+|19. decoder|$\textcolor{orange}{\textsf{Доверенный}}$|SS|1||
+|20. encoder|$\textcolor{orange}{\textsf{Доверенный}}$|SS|0||
+
 
 ### Проверка негативных сценариев
 
