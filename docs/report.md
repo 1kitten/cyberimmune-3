@@ -228,19 +228,19 @@
 |5. headlights_status|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
 |6. fuel_status|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
 |7. vehicle_braking|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
-|8. engine_controller|$\textcolor{orange}{\textsf{Доверенный}}$|MM|2||
+|8. engine_controller|$\textcolor{orange}{\textsf{Доверенный}}$|MM|2|Устройство физически блокирующее двигатель|
 |9. engine|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
 |10. navigation_handler|$\textcolor{red}{\textsf{Недоверенный}}$|MM|1||
 |11. gps|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
-|12. doors_controller|$\textcolor{orange}{\textsf{Доверенный}}$|MM|1||
+|12. doors_controller|$\textcolor{orange}{\textsf{Доверенный}}$|MM|1|Устройство управляющее замком дверей и проверяющее закрыт ли двери|
 |13. locking_device|$\textcolor{red}{\textsf{Недоверенный}}$|SS|1||
-|14. data_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|2||
-|15. command_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|3||
-|16. access_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|3||
-|17. payment_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|3||
+|14. data_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|2|Програмный валидатор соотносящий данные телеметрии с телефона пользователя и gps авто, а также проверяющий телеметрию на адекватные показатели и неисправность|
+|15. command_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|3|Програмный валидатор проверяющий корректность команд и их последовательность|
+|16. access_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|3|Програмный валидатор проверяющий соответствие токена доступа в системе управления парком автомобилей и мобильного приложения|
+|17. payment_validator|$\textcolor{orange}{\textsf{Доверенный}}$|MS|3|Програмный валидатор проверяющий соответствие id чека и данных чека от мобильного приложения и системы управления парком автомобилей|
 |18. eblocks|$\textcolor{red}{\textsf{Недоверенный}}$|MM|7||
-|19. decoder|$\textcolor{orange}{\textsf{Доверенный}}$|SS|1||
-|20. encoder|$\textcolor{orange}{\textsf{Доверенный}}$|SS|0||
+|19. decoder|$\textcolor{orange}{\textsf{Доверенный}}$|SS|1|Алгоритм расшифровки получаемых данных|
+|20. encoder|$\textcolor{orange}{\textsf{Доверенный}}$|SS|0|Алгоритм шифрования исходящих данных|
 
 
 ### Проверка негативных сценариев
