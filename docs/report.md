@@ -215,7 +215,7 @@
 |:--|:-:|:-:|:-:|:--|
 |1. conn_with_manag_sys|$\textcolor{red}{\textsf{Недоверенный}}$|SS|5||
 |2. conn_with_mob_app|$\textcolor{red}{\textsf{Недоверенный}}$|SS|3||
-|3. IC|$\textcolor{green}{\textsf{Доверенный}}$|CM|6||
+|3. IC|$\textcolor{green}{\textsf{Доверенный}}$|MM|6||
 |4. tire_sensors|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
 |5. headlights_status|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
 |6. fuel_status|$\textcolor{red}{\textsf{Недоверенный}}$|SS|0||
