@@ -16,6 +16,12 @@ def send_to_eblocks(id, details):
     proceed_to_deliver(id, details)
 
 
+def send_to_ic(id, details):
+    details['devliver_to'] = 'ic'
+    details['operation'] = 'engine_stop_result'
+    proceed_to_deliver(id, details)
+
+
 def handle_event(id, details_str):
     """ Обработчик входящих в модуль задач. """
     details = json.loads(details_str)
@@ -29,6 +35,10 @@ def handle_event(id, details_str):
 
     if operation == "send_current_engine_state":
         send_to_eblocks(id, details)
+
+    elif operation == 'engine_stop':
+        print('Выключаем двигатель')
+        send_to_ic(id, details)
 
 
 def consumer_job(args, config):

@@ -9,13 +9,8 @@ from confluent_kafka import Consumer, OFFSET_BEGINNING
 MODULE_NAME: str = os.getenv("MODULE_NAME")
 
 
-def lock_car_doors(id, details):
-    data = details.get('data')
-    if data:
-        car = data['car']
-        if car.doors.is_locked == False:
-            print('Двери машины {car.brand} подлежат закрытию')
-            car.doors.is_locked = True
+def lock_car_doors(id, _):
+    print(f"Получили операцию: {id}. Запираем двери машины")
 
 
 def handle_event(id, details_str):

@@ -15,8 +15,20 @@ def send_to_mobile_app(id, details):
     proceed_to_deliver(id, details)
 
 
-def send_to_to_management_system(id, details):
+def send_to_management_system(id, details):
     details['deliver_to'] = "conn_with_manag_sys"
+    proceed_to_deliver(id, details)
+
+
+def send_to_doors_controller(id, details):
+    details['deliver_to'] = 'doors_controller'
+    details['operation'] = 'lock_car_doors'
+    proceed_to_deliver(id, details)
+
+
+def send_to_engine_controller(id, details):
+    details['deliver_to'] = 'engine_controller'
+    details['operation'] = 'engine_stop'
     proceed_to_deliver(id, details)
 
 
@@ -31,11 +43,44 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "communicate_with_mobile_app":
+    if operation == "lock_car_doors_result":
         send_to_mobile_app(id, details)
+        send_to_management_system(id, details)
 
-    elif operation == "communicate_with_manag_sys":
-        send_to_to_management_system(id, details)
+    elif operation == "engine_stop_result":
+        send_to_mobile_app(id, details)
+        send_to_management_system(id, details)
+    
+    elif operation == "data_validation_result":
+        if details['data'].get('malicious_data'):
+            send_to_doors_controller(id, details)
+
+        send_to_mobile_app(id, details)
+        send_to_management_system(id, details)
+    
+    elif operation == "payment_validation_result":
+        if details['data'].get('malicious_data'):
+            send_to_doors_controller(id, details)
+
+        send_to_mobile_app(id, details)
+        send_to_management_system(id, details)
+    
+    elif operation == "access_validation_result":
+        if details['data'].get('malicious_data'):
+            send_to_doors_controller(id, details)
+
+        send_to_mobile_app(id, details)
+        send_to_management_system(id, details)
+    
+    elif operation == "command_validation_result":
+        if details['data'].get('malicious_data'):
+            send_to_doors_controller(id, details)
+
+        send_to_mobile_app(id, details)
+        send_to_management_system(id, details)
+
+    # elif operation == "communicate_with_manag_sys":
+    #     send_to_to_management_system(id, details)
 
 
 def consumer_job(args, config):

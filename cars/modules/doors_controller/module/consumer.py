@@ -17,11 +17,15 @@ def send_to_locking_device(id, details):
 
 def send_to_ic(id, details):
     details["deliver_to"] = "ic"
+    details["operation"] = "lock_car_doors_result"
+
     proceed_to_deliver(id, details)
 
 
 def send_to_eblocks(id, details):
     details["deliver_to"] = "eblocks"
+    details["operation"] = "lock_car_doors_result"
+
     proceed_to_deliver(id, details)
 
 
@@ -38,12 +42,8 @@ def handle_event(id, details_str):
 
     if operation == "lock_car_doors":
         send_to_locking_device(id, details)
-    
-    elif operation == "get_doors_lock":
-        send_to_ic(id, details)
-    
-    elif operation == "doors_status":
         send_to_eblocks(id, details)
+        send_to_ic(id, details)
 
 
 def consumer_job(args, config):
