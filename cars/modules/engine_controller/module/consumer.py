@@ -17,7 +17,7 @@ def send_to_eblocks(id, details):
 
 
 def send_to_ic(id, details):
-    details['devliver_to'] = 'ic'
+    details['deliver_to'] = 'ic'
     details['operation'] = 'engine_stop_result'
     proceed_to_deliver(id, details)
 

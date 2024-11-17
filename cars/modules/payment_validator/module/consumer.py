@@ -4,17 +4,28 @@ import threading
 
 from uuid import uuid4
 from confluent_kafka import Consumer, OFFSET_BEGINNING
-import time
+
 from .producer import proceed_to_deliver
 
 
 MODULE_NAME: str = os.getenv("MODULE_NAME")
 
 
-def send_validation_response(id, details):
-    details['deliver_to'] = details['source']
-    details['source'] = MODULE_NAME
-    details['operation'] = 'validation_response_from_mob_app'
+def send_to_ic(id, details):
+    details['deliver_to'] = 'ic'
+    details['operation'] = 'data_validation_result'
+    proceed_to_deliver(id, details)
+
+
+def send_to_manag_sys(id, details):
+    details['deliver_to'] = 'conn_with_manag_sys'
+    details['operation'] = 'validate_from_manag_sys'
+    proceed_to_deliver(id, details)
+
+
+def send_to_mob_app(id, details):
+    details['deliver_to'] = 'conn_with_mob_app'
+    details['operation'] = 'validate_from_mob_app'
     proceed_to_deliver(id, details)
 
 
@@ -29,11 +40,16 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "validate_from_mob_app":
-        print('Происходит обращение к мобильному ПО') # через requests, например
-        time.sleep(5)
-        print('Получен ответ')
-        send_validation_response(id, details)
+    if operation == "payment_validation":
+        print(f"По запросу: {id}. Происходит валидация платежа: {details['data']}")
+        send_to_mob_app(id, details)
+        send_to_manag_sys(id, details)
+
+    elif operation in (
+        'validation_response_from_mob_app',
+        'validation_response_from_manag_sys'
+    ):
+        send_to_ic(id, details)
 
 
 def consumer_job(args, config):

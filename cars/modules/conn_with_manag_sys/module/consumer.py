@@ -4,15 +4,17 @@ import threading
 
 from uuid import uuid4
 from confluent_kafka import Consumer, OFFSET_BEGINNING
-
+import time
 from .producer import proceed_to_deliver
 
 
 MODULE_NAME: str = os.getenv("MODULE_NAME")
 
 
-def send_to_eblocks(id, details):
-    details["deliver_to"] = "eblocks"
+def send_validation_response(id, details):
+    details['deliver_to'] = details['source']
+    details['source'] = MODULE_NAME
+    details['operation'] = 'validation_response_from_manag_sys'
     proceed_to_deliver(id, details)
 
 
@@ -27,8 +29,11 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "get_cars":
-        return send_to_eblocks(id, details)
+    if operation == "validate_from_manag_sys":
+        print('Происходит обращение к менеджеру') # через requests, например
+        time.sleep(5)
+        print('Получен ответ')
+        send_validation_response(id, details)
 
 
 def consumer_job(args, config):

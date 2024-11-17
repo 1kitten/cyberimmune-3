@@ -4,17 +4,28 @@ import threading
 
 from uuid import uuid4
 from confluent_kafka import Consumer, OFFSET_BEGINNING
-import time
+
 from .producer import proceed_to_deliver
 
 
 MODULE_NAME: str = os.getenv("MODULE_NAME")
 
 
-def send_validation_response(id, details):
-    details['deliver_to'] = details['source']
-    details['source'] = MODULE_NAME
-    details['operation'] = 'validation_response_from_mob_app'
+def send_to_ic(id, details):
+    details['devliver_to'] = 'ic'
+    details['operation'] = 'data_validation_result'
+    proceed_to_deliver(id, details)
+
+
+def send_to_access_validation(id, details):
+    details['deliver_to'] = 'access_validator'
+    details['operation'] = 'access_validation'
+    proceed_to_deliver(id, details)
+
+
+def send_to_payment_validation(id, details):
+    details['deliver_to'] = 'payment_validator'
+    details['operation'] = 'payment_validation'
     proceed_to_deliver(id, details)
 
 
@@ -29,11 +40,17 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "validate_from_mob_app":
-        print('Происходит обращение к мобильному ПО') # через requests, например
-        time.sleep(5)
-        print('Получен ответ')
-        send_validation_response(id, details)
+    if operation == "command_validation":
+        print(f"По запросу: {id}. Происходит валидация команды: {details['data']['command']}")
+        
+        # проверка прав доступа через access_validator
+        send_to_access_validation(id, details)
+
+        # если это платежная команда
+        if details['data']['command'] == 'payment_command':
+            send_to_payment_validation(id, details) 
+        
+        send_to_ic(id, details)
 
 
 def consumer_job(args, config):

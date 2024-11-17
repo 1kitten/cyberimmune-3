@@ -22,7 +22,7 @@ def send_to_command_validation(id, details):
 def send_to_data_validator(id, info):
     proceed_to_deliver(id, json.dumps(dict(
         source=MODULE_NAME,
-        deliver_to="data_validation",
+        deliver_to="data_validator",
         operation="data_validation",
         data=info
     )))
