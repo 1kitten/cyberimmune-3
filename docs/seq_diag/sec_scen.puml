@@ -11,11 +11,11 @@ participant "decoder" as decoder
 participant "command\nvalidator" as command_validator
 participant "access\nvalidator" as access_validator
 participant "payment\nvalidator" as payment_validator
-participant "date\nvalidator" as date_validator
+participant "date\nvalidator" as data_validator
 participant "IC" as ic
 participant "eblocks" as eblocks
 participant "tire\nsensors" as tire_sensors
-participant "vehicle\nbreaking" as vehicle_breaking
+participant "vehicle\nbreaking" as vehicle_braking
 participant "fuel\ntank" as fuel_tank
 participant "headlights" as headlights
 participant "engine\ncontroller" as engine_controller
@@ -32,7 +32,7 @@ group контракт на поездку
     decoder -> conn_with_manag_sys: опрос\nавто
     conn_with_manag_sys -> eblocks: запрос телеметрии
     tire_sensors -> eblocks: статус
-    vehicle_breaking -> eblocks: статус
+    vehicle_braking -> eblocks: статус
     fuel_tank -> eblocks: статус
     headlights -> eblocks: статус
     engine -> engine_controller: статус
@@ -40,17 +40,18 @@ group контракт на поездку
     doors_controller -> eblocks: статус
     gps -> navigation_handler: статус
     navigation_handler -> eblocks: статус
-    eblocks -> date_validator: отправка\nтеллеметрии
+    eblocks -> data_validator: отправка\nтеллеметрии
     mobile -> decoder: отправка\nтелеметрии с мобильного
     decoder -> conn_with_mob_app: отправка\nтелеметрии с мобильного
-    conn_with_mob_app -> date_validator: отправка\nтелеметрии с мобильного
-    date_validator -> date_validator: сверка\телеметрии
-    date_validator -> ic: телеметрия\nсовпадает
+    conn_with_mob_app -> data_validator: отправка\nтелеметрии с мобильного
+    data_validator -> data_validator: сверка\телеметрии
+    data_validator -> ic: телеметрия\nсовпадает
     eblocks -> command_validator: проверка\nкоманды
     command_validator -> access_validator: проверка\nдоступа
     access_validator <- access_validator: расшифровка и\nсверка\nтокена
     access_validator -> ic: доступ разрешён\nкоманда проверена
     ic -> encoder: статус автомобиля
+    note left: если теллеметрия не совпадает или вызывает подозрение то возвращает в статусе неготовность
     encoder -> conn_with_manag_sys: статус автомобиля
     conn_with_manag_sys -> manage_sys: статус автомобиля
     manage_sys -> mobile: список авто и тарифы
@@ -86,7 +87,9 @@ group контракт на поездку
     payment_validator <- payment_validator: расшифровка и\nсверка\nтокенов
     access_validator -> ic: доступ разрешён\nкоманда проверена
     payment_validator -> ic: оплата\nпроверена
+    note left: не разблокирует двери, если оплата не подтверждена
     ic -> encoder: запрос доступа и\nтарифного плана
+    note left: если не прошла проверка на доступ \n или проверка оплаты \n или проверка комманды \n то сигнализирует в систему управления парком
     encoder -> conn_with_manag_sys: запрос доступа и\nтарифного плана
     conn_with_manag_sys -> manage_sys: запрос доступа и\nтарифного плана
     manage_sys -> manage_sys: проверка профиля\nи статуса оплаты
@@ -98,11 +101,12 @@ group контракт на поездку
     access_validator <- access_validator: расшифровка и\nсверка\nтокена
     access_validator -> ic: доступ разрешён\nкоманда проверена
     ic -> doors_controller: открыть\nдвери
-    doors_controller -> doors: открыть\nдвери
+    doors_controller -> locking_device: открыть\nдвери
     doors_controller -> ic: двери\nоткрыты
     ic -> engine_controller: разблокировать\nдвигатель
     engine_controller -> ic: двигатель\nразблокирован
     ic -> conn_with_mob_app: разрешение\nдоступа
+    note left: если есть подозрения в доступе или в команде блокирует двери и/или двигатель
     conn_with_mob_app -> encoder: разрешение\nдоступа
     encoder -> mobile: разрешение доступа
 end
@@ -146,7 +150,7 @@ group поездка
     encoder -> conn_with_mob_app: стастус\nвыполнения\nзапроса на услугу
     ic -> eblocks: запрос телеметрии
     tire_sensors -> eblocks: статус
-    vehicle_breaking -> eblocks: статус
+    vehicle_braking -> eblocks: статус
     fuel_tank -> eblocks: статус
     headlights -> eblocks: статус
     engine -> engine_controller: статус
@@ -154,12 +158,13 @@ group поездка
     doors_controller -> eblocks: статус
     gps -> navigation_handler: статус
     navigation_handler -> eblocks: статус
-    eblocks -> date_validator: отправка\nтеллеметрии
+    eblocks -> data_validator: отправка\nтеллеметрии
     mobile -> decoder: отправка\nтелеметрии с мобильного
     decoder -> conn_with_mob_app: отправка\nтелеметрии с мобильного
-    conn_with_mob_app -> date_validator: отправка\nтелеметрии с мобильного
-    date_validator -> date_validator: сверка\телеметрии
-    date_validator -> ic: телеметрия\nсовпадает
+    conn_with_mob_app -> data_validator: отправка\nтелеметрии с мобильного
+    data_validator -> data_validator: сверка\телеметрии
+    data_validator -> ic: телеметрия\nсовпадает
+    note left: если data_validator не подтвердил корректность данных \nили сомневается в исправности автомобиля, \nто присылает уведомления о подтверждении данных клиенту,\nесли не соблюдается скорость или район поездки, то предупреждает 3 раза,\n на 4 блокирует возможность разгоняться и отправляет уведомлени в систему паркинга
     ic -> encoder: статус автомобиля
     encoder -> conn_with_manag_sys: статус автомобиля
     conn_with_manag_sys -> manage_sys: статус автомобиля
@@ -181,7 +186,7 @@ group завершение поездки и возврат авто
     access_validator -> ic: доступ разрешён\nкоманда проверена
     ic -> eblocks: запрос телеметрии
     tire_sensors -> eblocks: статус
-    vehicle_breaking -> eblocks: статус
+    vehicle_braking -> eblocks: статус
     fuel_tank -> eblocks: статус
     headlights -> eblocks: статус
     engine -> engine_controller: статус
@@ -189,12 +194,12 @@ group завершение поездки и возврат авто
     doors_controller -> eblocks: статус
     gps -> navigation_handler: статус
     navigation_handler -> eblocks: статус
-    eblocks -> date_validator: отправка\nтеллеметрии
+    eblocks -> data_validator: отправка\nтеллеметрии
     mobile -> decoder: отправка\nтелеметрии с мобильного
     decoder -> conn_with_mob_app: отправка\nтелеметрии с мобильного
-    conn_with_mob_app -> date_validator: отправка\nтелеметрии с мобильного
-    date_validator -> date_validator: сверка\телеметрии
-    date_validator -> ic: телеметрия\nсовпадает
+    conn_with_mob_app -> data_validator: отправка\nтелеметрии с мобильного
+    data_validator -> data_validator: сверка\телеметрии
+    data_validator -> ic: телеметрия\nсовпадает
     ic -> encoder: возврат авто\nсводка по поездке
     encoder -> conn_with_manag_sys: возврат авто\nсводка по поездке
     conn_with_manag_sys -> manage_sys: возврат авто\nсводка по поездке
@@ -225,6 +230,7 @@ group завершение поездки и возврат авто
     payment_validator <- payment_validator: расшифровка и\nсверка\nтокенов
     access_validator -> ic: доступ разрешён\nкоманда проверена
     payment_validator -> ic: оплата\nпроверена
+    note left: если оплата не прошла уведомляет систему контроля парка и уведомляет клиента\n и не завершает аренду
     ic -> engine_controller: заблокировать двигатель
     engine_controller -> ic: двигатель заблокирован
     ic -> doors_controller: закрыть двери
