@@ -54,6 +54,7 @@ def handle_event(id, details_str):
     elif operation == "data_validation_result":
         if details['data'].get('malicious_data'):
             send_to_doors_controller(id, details)
+            send_to_engine_controller(id, details)
 
         send_to_mobile_app(id, details)
         send_to_management_system(id, details)
@@ -61,6 +62,8 @@ def handle_event(id, details_str):
     elif operation == "payment_validation_result":
         if details['data'].get('malicious_data'):
             send_to_doors_controller(id, details)
+            send_to_engine_controller(id, details)
+
 
         send_to_mobile_app(id, details)
         send_to_management_system(id, details)
@@ -68,6 +71,7 @@ def handle_event(id, details_str):
     elif operation == "access_validation_result":
         if details['data'].get('malicious_data'):
             send_to_doors_controller(id, details)
+            send_to_engine_controller(id, details)
 
         send_to_mobile_app(id, details)
         send_to_management_system(id, details)
@@ -75,6 +79,7 @@ def handle_event(id, details_str):
     elif operation == "command_validation_result":
         if details['data'].get('malicious_data'):
             send_to_doors_controller(id, details)
+            send_to_engine_controller(id, details)
 
         send_to_mobile_app(id, details)
         send_to_management_system(id, details)
