@@ -3,6 +3,8 @@ import json
 import threading
 
 from uuid import uuid4
+import time
+import random
 from confluent_kafka import Consumer, OFFSET_BEGINNING
 
 from .producer import proceed_to_deliver
@@ -27,7 +29,7 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "get_headlights":
+    if operation == "send_current_headlights_state":
         send_to_eblocks(id, details)
 
 
@@ -47,6 +49,19 @@ def consumer_job(args, config):
 
     try:
         while True:
+            if random.randint(0,1):
+                time.sleep(45)
+                handle_event(uuid4(), json.dumps(
+                    source=MODULE_NAME,
+                    deliver_to="eblocks",
+                    operation="send_current_headlights_state",
+                    data={
+                        "is_left_working": bool(random.randint(0,1)),
+                        "is_right_working": bool(random.randint(0,1)),
+                        "exactly": bool(random.randint(0,1)),
+                    }
+                ))
+
             msg = consumer.poll(1.0)
             if msg is None:
                 pass

@@ -2,7 +2,9 @@ import os
 import json
 import threading
 
-from uuid import uuid4
+import random
+import time
+import uuid
 from confluent_kafka import Consumer, OFFSET_BEGINNING
 
 from .producer import proceed_to_deliver
@@ -27,7 +29,7 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "get_fuel_tank":
+    if operation == "send_current_fuel_tank_state":
         send_to_eblocks(id, details)
 
 
@@ -47,6 +49,19 @@ def consumer_job(args, config):
 
     try:
         while True:
+            if random.randint(0, 1):
+                time.sleep(30)
+                handle_event(uuid.uuid4(), json.dumps(dict(
+                    source=MODULE_NAME,
+                    deliver_to="eblocks",
+                    operation="send_current_fuel_tank_state",
+                    data={
+                        "is_full": bool(random.randint(0,1)),
+                        "exactly": bool(random.randint(0,1)),
+                        "current_amount_of_fuel": random.randint(0, 100)
+                    }
+                )))
+
             msg = consumer.poll(1.0)
             if msg is None:
                 pass

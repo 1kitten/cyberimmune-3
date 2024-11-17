@@ -1,12 +1,12 @@
 import os
 import json
 import threading
-
-from uuid import uuid4
+import random
 from confluent_kafka import Consumer, OFFSET_BEGINNING
-
+import uuid
 from .producer import proceed_to_deliver
 
+import time
 
 MODULE_NAME: str = os.getenv("MODULE_NAME")
 
@@ -27,7 +27,7 @@ def handle_event(id, details_str):
     print(f"[info] handling event {id}, "
           f"{source}->{deliver_to}: {operation}")
 
-    if operation == "get_tire_sensors":
+    if operation == "send_current_tire_sensors_state":
         send_to_eblocks(id, details)
 
 
@@ -47,19 +47,21 @@ def consumer_job(args, config):
 
     try:
         while True:
-            msg = consumer.poll(1.0)
-            if msg is None:
-                pass
-            elif msg.error():
-                print(f"[error] {msg.error()}")
-            else:
-                try:
-                    id = msg.key().decode('utf-8')
-                    details_str = msg.value().decode('utf-8')
-                    handle_event(id, details_str)
-                except Exception as e:
-                    print(f"[error] Malformed event received from " \
-                          f"topic {topic}: {msg.value()}. {e}")
+            time.sleep(30)
+
+            try:
+                handle_event(uuid.uuid4(), json.dumps(dict(
+                    deviler_to="eblocks",
+                    source=MODULE_NAME,
+                    operation="send_current_tire_sensors_state",
+                    data={
+                        "is_okay": bool(random.randint(1,0)),
+                        "exactly": bool(random.randint(1,0))
+                    }
+                )))
+            except Exception as e:
+                print(f"[error] Malformed event received from " \
+                        f"topic {topic}. {e}")
     except KeyboardInterrupt:
         pass
 
