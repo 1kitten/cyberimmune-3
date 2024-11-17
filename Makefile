@@ -11,7 +11,7 @@ MODULES := access_validator \
 			encoder \
 			engine \
 			engine_controller \
-			fuel \
+			fuel_tank \
 			gps \
 			headlights \
 			ic \

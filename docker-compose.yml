@@ -227,9 +227,9 @@ services:
     #ports:
     #  - 6072:6072
 
-  fuel:
-    build: ./cars/modules/fuel
-    image: fuel
+  fuel_tank:
+    build: ./cars/modules/fuel_tank
+    image: fuel_tank
     entrypoint:
       - bash
       - -c
@@ -237,9 +237,9 @@ services:
         echo 'Giving Kafka a bit of time to start up…'
         sleep 20
         venv/bin/python start.py /shared/config.ini
-    container_name: fuel
+    container_name: fuel_tank
     environment:
-      - MODULE_NAME=fuel
+      - MODULE_NAME=fuel_tank
     #  - MODULE_PORT=6072
     volumes:
       - ./cars/shared:/shared
