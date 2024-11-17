@@ -379,9 +379,9 @@ services:
     #ports:
     #  - 6072:6072
 
-  venicle_braking:
-    build: ./cars/modules/venicle_braking
-    image: venicle_braking
+  vehicle_braking:
+    build: ./cars/modules/vehicle_braking
+    image: vehicle_braking
     entrypoint:
       - bash
       - -c
@@ -389,9 +389,9 @@ services:
         echo 'Giving Kafka a bit of time to start up…'
         sleep 20
         venv/bin/python start.py /shared/config.ini
-    container_name: venicle_braking
+    container_name: vehicle_braking
     environment:
-      - MODULE_NAME=venicle_braking
+      - MODULE_NAME=vehicle_braking
     #  - MODULE_PORT=6072
     volumes:
       - ./cars/shared:/shared

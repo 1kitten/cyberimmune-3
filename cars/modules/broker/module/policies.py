@@ -31,7 +31,7 @@ policies = (
    
     # Модуль технического состояния
     {"src": "tire_sensons", "dst": "eblocks"},
-    {"src": "venicle_braking", "dst": "eblocks"},
+    {"src": "vehicle_braking", "dst": "eblocks"},
     {"src": "fuel_tank", "dst": "eblocks"},
     {"src": "headlights", "dst": "eblocks"},
     

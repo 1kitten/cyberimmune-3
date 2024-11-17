@@ -109,13 +109,13 @@ class TestOperation(unittest.TestCase):
     def test_technical_status_module(self):
         ops = (
             ('tire_sensons', 'eblocks', True),
-            ('venicle_braking', 'eblocks', True),
+            ('vehicle_braking', 'eblocks', True),
             ('fuel_tank', 'eblocks', True),
             ('headlights', 'eblocks', True),
             
             ('eblocks', 'fuel_tank', False),
             ('eblocks', 'tire_sensons', False),
-            ('eblocks', 'venicle_braking', False),
+            ('eblocks', 'vehicle_braking', False),
             ('eblocks', 'headlights', False),
         )
 
