@@ -41,9 +41,9 @@ group контракт на поездку
     gps -> navigation_handler: статус
     navigation_handler -> eblocks: статус
     eblocks -> data_validator: отправка\nтеллеметрии
-    mobile -> decoder: отправка\nтелеметрии с мобильного
-    decoder -> conn_with_mob_app: отправка\nтелеметрии с мобильного
-    conn_with_mob_app -> data_validator: отправка\nтелеметрии с мобильного
+    mobile -> conn_with_mob_app: отправка\nтелеметрии с мобильного
+    conn_with_mob_app -> decoder: отправка\nтелеметрии с мобильного
+    decoder -> data_validator: отправка\nтелеметрии с мобильного
     data_validator -> data_validator: сверка\телеметрии
     data_validator -> ic: телеметрия\nсовпадает
     eblocks -> command_validator: проверка\nкоманды
