@@ -118,7 +118,7 @@
         <mxCell id="c9H_aWx4Ouh0dALJL8Jf-10" value="headlights" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="c9H_aWx4Ouh0dALJL8Jf-8">
           <mxGeometry x="200" y="20.00478518518519" width="140" height="32.592592592592595" as="geometry" />
         </mxCell>
-        <mxCell id="c9H_aWx4Ouh0dALJL8Jf-11" value="vehicle_breaking" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="c9H_aWx4Ouh0dALJL8Jf-8">
+        <mxCell id="c9H_aWx4Ouh0dALJL8Jf-11" value="vehicle_braking" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="c9H_aWx4Ouh0dALJL8Jf-8">
           <mxGeometry x="30" y="83.69967407407408" width="140" height="32.592592592592595" as="geometry" />
         </mxCell>
         <mxCell id="c9H_aWx4Ouh0dALJL8Jf-12" value="tire_sensors" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="c9H_aWx4Ouh0dALJL8Jf-8">
@@ -145,7 +145,7 @@
         <mxCell id="c9H_aWx4Ouh0dALJL8Jf-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" edge="1" parent="c9H_aWx4Ouh0dALJL8Jf-18" source="c9H_aWx4Ouh0dALJL8Jf-20" target="c9H_aWx4Ouh0dALJL8Jf-22">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="c9H_aWx4Ouh0dALJL8Jf-20" value="Броек сообщений" style="rounded=0;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="c9H_aWx4Ouh0dALJL8Jf-18">
+        <mxCell id="c9H_aWx4Ouh0dALJL8Jf-20" value="Брокер сообщений" style="rounded=0;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="c9H_aWx4Ouh0dALJL8Jf-18">
           <mxGeometry width="120" height="50" as="geometry" />
         </mxCell>
         <mxCell id="c9H_aWx4Ouh0dALJL8Jf-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" edge="1" parent="c9H_aWx4Ouh0dALJL8Jf-18" source="c9H_aWx4Ouh0dALJL8Jf-22" target="c9H_aWx4Ouh0dALJL8Jf-20">
@@ -432,7 +432,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="c9H_aWx4Ouh0dALJL8Jf-81" value="date_validator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="c9H_aWx4Ouh0dALJL8Jf-1">
+        <mxCell id="c9H_aWx4Ouh0dALJL8Jf-81" value="data_validator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="c9H_aWx4Ouh0dALJL8Jf-1">
           <mxGeometry x="1370" y="530" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="c9H_aWx4Ouh0dALJL8Jf-82" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="c9H_aWx4Ouh0dALJL8Jf-1" source="c9H_aWx4Ouh0dALJL8Jf-28" target="c9H_aWx4Ouh0dALJL8Jf-81">
@@ -539,7 +539,7 @@
         <mxCell id="cM-bwy7ixKBUzdzMkt_z-1" value="headlights" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="cM-bwy7ixKBUzdzMkt_z-21">
           <mxGeometry x="200" y="20.00478518518519" width="140" height="32.592592592592595" as="geometry" />
         </mxCell>
-        <mxCell id="cM-bwy7ixKBUzdzMkt_z-3" value="vehicle_breaking" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="cM-bwy7ixKBUzdzMkt_z-21">
+        <mxCell id="cM-bwy7ixKBUzdzMkt_z-3" value="vehicle_braking" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="cM-bwy7ixKBUzdzMkt_z-21">
           <mxGeometry x="30" y="83.69967407407408" width="140" height="32.592592592592595" as="geometry" />
         </mxCell>
         <mxCell id="cM-bwy7ixKBUzdzMkt_z-2" value="tire_sensors" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="cM-bwy7ixKBUzdzMkt_z-21">
@@ -858,7 +858,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="SrsCirZEcUBZI99fBKNt-59" value="date_validator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+        <mxCell id="SrsCirZEcUBZI99fBKNt-59" value="data_validator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
           <mxGeometry x="1370" y="530" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="SrsCirZEcUBZI99fBKNt-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="SrsCirZEcUBZI99fBKNt-15" target="SrsCirZEcUBZI99fBKNt-59">
