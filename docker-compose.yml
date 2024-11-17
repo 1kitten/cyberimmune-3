@@ -19,7 +19,7 @@ services:
      - "29092"
     depends_on:
       - zookeeper
-    env_file: ./management-system/modules/broker/config/.env
+    env_file: ./cars/modules/broker/config/.env
 
   access_validator:
     build: ./cars/modules/access_validator
