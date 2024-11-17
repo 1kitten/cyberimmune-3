@@ -1,4 +1,4 @@
-@startuml base_scen_drive
+@startuml
 title Базовый сценарий поездки
 autonumber
 actor "Клиент" as client
@@ -41,6 +41,10 @@ group контракт на поездку
     eblocks -> doors: открыть двери
     doors -> eblocks: двери открыты
     eblocks -> iot: двери октрыты
+    iot -> eblocks: разблокировать двигатель
+    eblocks -> engine: разблокировать двигатель
+    engine -> eblocks: двигатель разблокирован
+    eblocks -> iot: двигатель разблокирован
     iot -> mobile: разрешение доступа
 end
 group поездка
@@ -66,8 +70,8 @@ group завершение поездки и возврат авто
     eblocks -> iot: телеметрия
     iot -> eblocks: заблокировать двигатель
     eblocks -> engine: заблокировать двигатель
-    engine -> eblocks: двигатель залокирован
-    eblocks -> iot: двигатель залокирован
+    engine -> eblocks: двигатель заблокирован
+    eblocks -> iot: двигатель заблокирован
     iot -> eblocks: закрыть двери
     eblocks -> engine: закрыть двери
     engine -> eblocks: двери закрыты
