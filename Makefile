@@ -20,7 +20,6 @@ MODULES := access_validator \
 			payment_validator \
 			tire_sensors \
 			venicle_braking \
-			
 			payment-system \
 			management-system \
 			mobile-client \
